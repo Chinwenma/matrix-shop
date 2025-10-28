@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
+
+
 /* :root {
   --background: #ffffff;
   --foreground: #171717;

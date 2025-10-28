@@ -63,17 +63,23 @@ const Navbar: FC = () => {
           <User className="w-5 h-5 text-gray-700 cursor-pointer" />
         </div>
       </div>
-
       {/* Bottom Navigation */}
       <nav className="flex justify-between items-center text-sm px-12 py-2 bg-white">
         <div className="flex space-x-6">
-          {["Home", "Shop", "Product", "Pages", "About"].map((item) => (
+          {[
+            { name: "Home", href: "/" },
+            { name: "Categories", href: "/categories" },
+            { name: "Products", href: "/products" },
+            { name: "About", href: "/about" },
+            { name: "Blog", href: "/blog" },
+            { name: "Contact", href: "/contact" },
+          ].map((link) => (
             <Link
-              key={item}
-              href="#"
+              key={link.name}
+              href={link.href}
               className="hover:text-teal-600 text-gray-700 transition"
             >
-              {item}
+              {link.name}
             </Link>
           ))}
         </div>
