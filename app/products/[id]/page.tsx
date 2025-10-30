@@ -1,12 +1,9 @@
 "use client";
-
 // import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { Star} from "lucide-react";
 import Button from "@/app/components/btn/Button";
-
-
 const productData = {
   id: 1,
   title: "Grey Acid Wash Wide Leg Jogger",

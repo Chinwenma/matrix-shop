@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function CallToAction() {
   return (
-    <section className="bg-linear-to-r from-[#43785c] via-[#2ab19f] to-[#07ac8e] text-white py-16 px-4">
+    <section className="bg-[#2b2541] text-white py-16 px-4">
       <div className="max-w-3xl mx-auto text-center">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl font-bold mb-3">

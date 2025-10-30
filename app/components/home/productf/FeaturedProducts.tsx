@@ -14,7 +14,7 @@ const products = [
   { id: 2, title: "Library Stool Chair", price: 20, oldPrice: 30, image: "/assets/chair2.jpg", badge: "Sales" },
   { id: 3, title: "Library Stool Chair", price: 20, image: "/assets/chair3.jpg" },
   { id: 4, title: "Library Stool Chair", price: 20, image: "/assets/chair4.jpg" },
-  { id: 5, title: "Library Stool Chair", price: 20, image: "/assets/chair5.jpg" },
+  { id: 5, title: "Library Stool Chair", price: 20, image: "/assets/chair5.png" },
 ];
 
 const FeaturedProducts: FC = () => {

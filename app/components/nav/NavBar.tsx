@@ -1,19 +1,28 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
-import { ShoppingCart, Heart, User, Search } from "lucide-react";
+import { FC, useCallback, useEffect, useState } from "react";
+import { ShoppingCart, User, X, Menu } from "lucide-react";
 import Link from "next/link";
+import { navLinks } from "@/app/constants/Constant";
 
 const Navbar: FC = () => {
   const [isSticky, setIsSticky] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+  const closeMenu = useCallback(() => setIsOpen(false), []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 90);
-    };
+    const handleScroll = () => setIsSticky(window.scrollY > 90);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <header
@@ -23,69 +32,115 @@ const Navbar: FC = () => {
           : "relative"
       }`}
     >
-      {/* Top Bar */}
-      <div className="bg-[#2b2541] text-gray-300 text-sm flex justify-between items-center px-12 py-2">
+      {/* 🔹 Top Bar */}
+      <div className="hidden md:flex justify-between items-center bg-[#2b2541] text-gray-300 text-sm px-12 py-2">
         <p>✓ Free Shipping On All Orders Over $50</p>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-5">
           <select className="bg-transparent text-gray-300 outline-none">
             <option value="eng">Eng</option>
           </select>
-          <Link href="#">Faqs</Link>
-          <Link href="#">Need Help</Link>
-        </div>
-      </div>
-
-      {/* Main Navigation */}
-      <div className="bg-gray-100 py-4 px-12 flex justify-between items-center">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <span className="text-teal-600 text-2xl">🛋️</span>
-          <span className="font-semibold text-xl text-gray-800">MatrixShop</span>
-        </div>
-
-        {/* Search Bar */}
-        <div className="relative w-[300px]">
-          <input
-            type="text"
-            placeholder="Search here..."
-            className="w-full rounded-md border border-gray-300 py-2 pl-3 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-          <Search className="absolute right-3 top-2.5 text-gray-500 h-4 w-4" />
-        </div>
-
-        {/* Icons */}
-        <div className="flex items-center space-x-5">
-          <Link href="/cart" className="flex items-center space-x-1">
-            <ShoppingCart className="w-5 h-5 text-gray-700" />
-            <span className="text-sm">Cart</span>
+          <Link href="#" className="hover:text-white transition">
+            Faqs
           </Link>
-          <Heart className="w-5 h-5 text-gray-700 cursor-pointer" />
-          <User className="w-5 h-5 text-gray-700 cursor-pointer" />
+          <Link href="#" className="hover:text-white transition">
+            Need Help
+          </Link>
         </div>
       </div>
-      {/* Bottom Navigation */}
-      <nav className="flex justify-between items-center text-sm px-12 py-2 bg-white">
-        <div className="flex space-x-6">
-          {[
-            { name: "Home", href: "/" },
-            { name: "Categories", href: "/categories" },
-            { name: "Products", href: "/products" },
-            { name: "About", href: "/about" },
-            { name: "Contact", href: "/contact" },
-          ].map((link) => (
+
+      {/* 🔹 Main Navigation */}
+      <div className="bg-gray-100 px-4 md:px-12 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center  space-x-2 shrink-0">
+          {/* <span className="text-teal-600 text-3xl">🛋️</span> */}
+          <span className="font-semibold text-2xl text-gray-800 whitespace-nowrap">
+            MatrixShop
+          </span>
+        </Link>
+
+        {/* Nav Links */}
+        <nav className="hidden md:flex space-x-8">
+          {navLinks.map((link) => (
             <Link
-              key={link.name}
-              href={link.href}
-              className="hover:text-teal-600 text-gray-700 transition"
+              key={link.id}
+              href={link.url}
+              className="text-gray-700 hover:text-teal-600 text-sm font-medium transition"
             >
-              {link.name}
+              {link.label}
             </Link>
           ))}
+        </nav>
+
+        {/* Right Side Icons */}
+        <div className="flex items-center space-x-4 md:space-x-6 shrink-0">
+          <Link
+            href="/cart"
+            className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition"
+          >
+            <ShoppingCart className="w-5 h-5" />
+            <span className="hidden sm:inline text-sm font-medium">Cart</span>
+          </Link>
+          <Link
+            href="/signin"
+            className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition"
+          >
+            <User className="w-5 h-5 text-gray-700 hover:text-teal-600 cursor-pointer transition" />
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden text-gray-800"
+            aria-label="Toggle Menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+          >
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
         </div>
-        <p className="text-gray-700 text-sm">
-          Hotline: <span className="font-medium">(808) 555-0111</span>
-        </p>
-      </nav>
+      </div>
+
+      {/* Mobile Nav Drawer */}
+      <div
+        id="mobile-menu"
+        className={`fixed top-0 bg-[#2b2541] right-0 h-full w-[75%] sm:w-[60%] text-white z-40 transform ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        } transition-transform duration-300 ease-in-out flex flex-col px-6 py-8 items-center`}
+        role="dialog"
+        aria-modal="true"
+      >
+        <button
+          onClick={closeMenu}
+          className="self-end mb-8"
+          aria-label="Close Menu"
+        >
+          <X size={28} />
+        </button>
+
+        <nav className="flex flex-col gap-6 text-lg" role="menu">
+          {navLinks.map((link) => (
+            <Link
+              key={link.id}
+              href={link.url}
+              onClick={closeMenu}
+              className="pb-2"
+              tabIndex={0}
+              role="menuitem"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+      {/* Backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-lg z-30 md:hidden"
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+      )}
     </header>
   );
 };

@@ -86,7 +86,7 @@ const products: Product[] = [
     name: "Rustic Bookshelf",
     brand: "WoodWorks",
     price: 260,
-    image: "/assets/chair6.jpg",
+    image: "/assets/chair4.png",
   },
 ];
 
