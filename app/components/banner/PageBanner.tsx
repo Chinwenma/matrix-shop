@@ -18,7 +18,7 @@ const PageBanner: FC<HeroSectionProps> = ({
   overlayOpacity = "bg-black/50",
 }) => {
   return (
-    <section className="relative w-full h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[30vh] md:h-[40vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <Image
         src={backgroundImage}

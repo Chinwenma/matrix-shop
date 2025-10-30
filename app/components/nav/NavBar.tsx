@@ -40,7 +40,7 @@ const Navbar: FC = () => {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <span className="text-teal-600 text-2xl">🛋️</span>
-          <span className="font-semibold text-xl text-gray-700">Comforty</span>
+          <span className="font-semibold text-xl text-gray-800">MatrixShop</span>
         </div>
 
         {/* Search Bar */}
@@ -55,7 +55,7 @@ const Navbar: FC = () => {
 
         {/* Icons */}
         <div className="flex items-center space-x-5">
-          <Link href="#" className="flex items-center space-x-1">
+          <Link href="/cart" className="flex items-center space-x-1">
             <ShoppingCart className="w-5 h-5 text-gray-700" />
             <span className="text-sm">Cart</span>
           </Link>
@@ -84,7 +84,7 @@ const Navbar: FC = () => {
           ))}
         </div>
         <p className="text-gray-700 text-sm">
-          Contact: <span className="font-medium">(808) 555-0111</span>
+          Hotline: <span className="font-medium">(808) 555-0111</span>
         </p>
       </nav>
     </header>

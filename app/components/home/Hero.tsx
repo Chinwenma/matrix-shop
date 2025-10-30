@@ -22,7 +22,7 @@ const Hero: FC = () => {
         {/* Left Content */}
         <div className="max-w-lg text-center lg:text-left">
           <p className="text-sm tracking-widest text-gray-500 uppercase mb-2">
-            Welcome to Chairy
+            Welcome to Matrix Shop
           </p>
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-5">
             Best Furniture Collection For Your Interior.
@@ -67,17 +67,17 @@ const Hero: FC = () => {
           </Swiper>
 
           {/* Navigation Buttons */}
-          <button className="swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 hover:bg-teal-600 hover:text-white transition">
-            <ArrowLeft className="w-4 h-4" />
+          <button className="swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 hover:bg-gray-200  transition">
+            <ArrowLeft className="w-4 h-4 hover:text-white text-teal-700" />
           </button>
-          <button className="swiper-button-next absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 hover:bg-teal-600 hover:text-white transition">
-            <ArrowRight className="w-4 h-4" />
+          <button className="swiper-button-next absolute right-0 top-1/2 -translate-y-1/2 bg-white  shadow-md rounded-full p-2 hover:bg-gray-200 transition">
+            <ArrowRight className="w-4 h-4  text-teal-700" />
           </button>
         </div>
       </div>
 
       {/* Bottom Info Bar */}
-      <div className="max-w-5xl mx-auto -mt-8 bg-white shadow-md rounded-2xl py-4 px-6 flex flex-wrap justify-between items-center text-center gap-5">
+      <div className="max-w-5xl mx-auto -mt-8 mb-8 bg-white shadow-md rounded-2xl py-4 px-6 flex flex-wrap justify-between items-center text-center gap-5">
         <div className="flex flex-col items-center text-sm">
           <Package className="text-teal-600 mb-1" />
           <p className="font-medium text-gray-800">Discount</p>
