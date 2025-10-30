@@ -8,6 +8,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Button from "../btn/Button";
 
 const Hero: FC = () => {
   const slides = [
@@ -27,9 +28,12 @@ const Hero: FC = () => {
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-5">
             Best Furniture Collection For Your Interior.
           </h1>
-          <button className="inline-flex items-center bg-teal-600 text-white px-5 py-2.5 rounded-md hover:bg-teal-700 transition">
+          <Button variant="primary">
+        Shop Now <ArrowRight className="ml-2 w-4 h-4" />
+      </Button>
+          {/* <button className="inline-flex items-center bg-teal-600 text-white px-5 py-2.5 rounded-md hover:bg-teal-700 transition">
             Shop Now <ArrowRight className="ml-2 w-4 h-4" />
-          </button>
+          </button> */}
         </div>
 
         {/* Right Slider (Reduced Height) */}

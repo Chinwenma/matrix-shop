@@ -29,6 +29,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import PageBanner from "../components/banner/PageBanner";
+import Link from "next/link";
 
 interface Product {
   id: number;
@@ -173,18 +174,16 @@ export default function FurnitureProducts() {
                     </span>
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.97 }}
-                    className={`mt-4 w-full py-2 rounded-lg bg-black text-white text-sm font-medium hover:bg-gray-800 transition ${
-                      product.status === "out of stock"
-                        ? "opacity-50 cursor-not-allowed"
-                        : ""
-                    }`}
-                    disabled={product.status === "out of stock"}
-                  >
-                    View Product
-                  </motion.button>
+                 <Link
+  href={`/products/${product.id}`}
+  className={`mt-4 w-full py-2 rounded-lg bg-black text-white text-sm font-medium hover:bg-gray-800 transition text-center block ${
+    product.status === "out of stock"
+      ? "opacity-50 cursor-not-allowed pointer-events-none"
+      : ""
+  }`}
+>
+  View Product
+</Link>
                 </div>
               </motion.div>
             </motion.div>
