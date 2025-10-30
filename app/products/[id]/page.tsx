@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+// import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { Star} from "lucide-react";
