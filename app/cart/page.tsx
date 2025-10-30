@@ -131,7 +131,7 @@ export default function CartPage() {
           </div>
           <div className="mt-6">
             <Link
-              href="/checkout"
+              href="/order"
               className="bg-orange-600 text-white px-6 py-3 rounded-md hover:bg-orange-700 transition"
             >
               Proceed to Checkout

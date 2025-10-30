@@ -71,7 +71,6 @@ const Navbar: FC = () => {
             { name: "Categories", href: "/categories" },
             { name: "Products", href: "/products" },
             { name: "About", href: "/about" },
-            { name: "Blog", href: "/blog" },
             { name: "Contact", href: "/contact" },
           ].map((link) => (
             <Link

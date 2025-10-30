@@ -9,27 +9,21 @@ export default function Footer() {
         {/* Brand Info */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <div className="bg-teal-600 p-2 rounded-md">
+            <div className="bg-teal-600  rounded-full p-4">
               <Image
-                src="/icons/sofa.svg"
+                src="/assets/myLogo.png"
                 alt="Comforty Logo"
                 width={22}
                 height={22}
+                className="w-6 h-6"
               />
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">Comforty</h2>
+            <h2 className="text-lg font-semibold text-gray-800">Matrix Shop</h2>
           </div>
           <p className="text-gray-500 text-sm leading-snug">
             Vivamus tristique odio sit amet velit semper, eu posuere turpis
             interdum. Cras egestas purus.
           </p>
-
-          <div className="flex gap-4 mt-3 text-gray-500">
-            <Link href="#"><Twitter className="w-4 h-4 hover:text-teal-600 transition" /></Link>
-            <Link href="#"><Facebook className="w-4 h-4 hover:text-teal-600 transition" /></Link>
-            <Link href="#"><Instagram className="w-4 h-4 hover:text-teal-600 transition" /></Link>
-            <Link href="#"><Youtube className="w-4 h-4 hover:text-teal-600 transition" /></Link>
-          </div>
         </div>
 
         {/* Category */}
@@ -38,12 +32,26 @@ export default function Footer() {
             CATEGORY
           </h4>
           <ul className="space-y-1 text-gray-500 text-sm">
-            <li><Link href="#">Sofa</Link></li>
-            <li><Link href="#">Armchair</Link></li>
-            <li><Link href="#">Wing Chair</Link></li>
-            <li><Link href="#" className="text-teal-600 hover:underline">Desk Chair</Link></li>
-            <li><Link href="#">Wooden Chair</Link></li>
-            <li><Link href="#">Park Bench</Link></li>
+            <li>
+              <Link href="#">Sofa</Link>
+            </li>
+            <li>
+              <Link href="#">Armchair</Link>
+            </li>
+            <li>
+              <Link href="#">Wing Chair</Link>
+            </li>
+            <li>
+              <Link href="#" className="text-teal-600 hover:underline">
+                Desk Chair
+              </Link>
+            </li>
+            <li>
+              <Link href="#">Wooden Chair</Link>
+            </li>
+            <li>
+              <Link href="#">Park Bench</Link>
+            </li>
           </ul>
         </div>
 
@@ -53,10 +61,18 @@ export default function Footer() {
             SUPPORT
           </h4>
           <ul className="space-y-1 text-gray-500 text-sm">
-            <li><Link href="#">Help & Support</Link></li>
-            <li><Link href="#">Terms & Conditions</Link></li>
-            <li><Link href="#">Privacy Policy</Link></li>
-            <li><Link href="#">Help</Link></li>
+            <li>
+              <Link href="#">Help & Support</Link>
+            </li>
+            <li>
+              <Link href="#">Terms & Conditions</Link>
+            </li>
+            <li>
+              <Link href="#">Privacy Policy</Link>
+            </li>
+            <li>
+              <Link href="#">Help</Link>
+            </li>
           </ul>
         </div>
 
@@ -90,16 +106,32 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-gray-500 text-xs text-center md:text-left">
             © 2021 - Blogy – Designed & Developed by{" "}
-            <Link href="#" className="text-teal-600 hover:underline font-medium">
+            <Link
+              href="#"
+              className="text-teal-600 hover:underline font-medium"
+            >
               Zakirsoft
             </Link>
           </p>
-
-          <div className="flex items-center gap-2 opacity-70">
+          <div className="flex gap-4 mt-3 text-gray-500 items-center">
+            <Link href="#">
+              <Twitter className="w-4 h-4 hover:text-teal-600 transition" />
+            </Link>
+            <Link href="#">
+              <Facebook className="w-4 h-4 hover:text-teal-600 transition" />
+            </Link>
+            <Link href="#">
+              <Instagram className="w-4 h-4 hover:text-teal-600 transition" />
+            </Link>
+            <Link href="#">
+              <Youtube className="w-4 h-4 hover:text-teal-600 transition" />
+            </Link>
+          </div>
+          {/* <div className="flex items-center gap-2 opacity-70">
             <Image src="/payments/paypal.png" alt="PayPal" width={36} height={20} />
             <Image src="/payments/mastercard.png" alt="Mastercard" width={36} height={20} />
             <Image src="/payments/visa.png" alt="Visa" width={36} height={20} />
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

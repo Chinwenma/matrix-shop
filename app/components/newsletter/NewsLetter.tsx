@@ -1,43 +1,32 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 
-export default function Newsletter() {
+export default function CallToAction() {
   return (
-    <section className="bg-[#1e5d88] text-white py-16 px-4">
+    <section className="bg-linear-to-r from-[#43785c] via-[#2ab19f] to-[#07ac8e] text-white py-16 px-4">
       <div className="max-w-3xl mx-auto text-center">
         {/* Heading */}
-        <h2 className="text-2xl md:text-3xl font-semibold mb-3">
-          Subscribe to our newsletter
+        <h2 className="text-3xl md:text-4xl font-bold mb-3">
+          🎉 Big Discount Sale — Up to{" "}
+          <span className="text-orange-400">50% Off!</span>
         </h2>
 
         {/* Description */}
-        <p className="text-white/80 text-sm md:text-base mb-8 leading-relaxed">
-          Praesent fringilla erat a lacinia egestas. Donec vehicula tempor libero et cursus. 
-          Donec non quam urna. Quisque vitae porta ipsum.
+        <p className="text-white/90 text-sm md:text-base mb-8 leading-relaxed">
+          For a limited time only, enjoy massive discounts on all our premium
+          furniture collections. Don’t miss your chance to save big — sale ends soon!
         </p>
 
-        {/* Email Form */}
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto"
-        >
-          <input
-            type="email"
-            placeholder="Email address"
-            required
-            className="w-full px-4 py-3 rounded-md text-white text-sm  focus:ring-2 focus:ring-orange-500"
-          />
+        {/* Call to Action Button */}
+        <div className="flex justify-center">
           <button
-            type="submit"
-            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md text-sm font-medium flex items-center gap-2 transition"
+            onClick={() => (window.location.href = "/shop")} // change link as needed
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-md text-sm font-semibold flex items-center gap-2 transition-transform hover:scale-105 shadow-lg hover:shadow-orange-500/30"
           >
-            SUBSCRIBE <ArrowRight className="w-4 h-4" />
+            Shop Now! <ArrowRight className="w-4 h-4" />
           </button>
-        </form>
-
-       
+        </div>
       </div>
     </section>
   );
