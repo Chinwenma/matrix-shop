@@ -3,45 +3,9 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { categories } from "@/lib/categories";
 
-const categories = [
-  {
-    id: 1,
-    name: "Living Room",
-    image: "/assets/chair1.png",
-    description: "Cozy sofas, coffee tables & TV stands",
-  },
-  {
-    id: 2,
-    name: "Bedroom",
-    image: "/assets/chair1.png",
-    description: "Comfortable beds, wardrobes & nightstands",
-  },
-  {
-    id: 3,
-    name: "Dining Room",
-    image: "/assets/chair1.png",
-    description: "Stylish dining tables & chairs",
-  },
-  {
-    id: 4,
-    name: "Office",
-    image: "/assets/chair1.png",
-    description: "Desks, chairs & storage for your workspace",
-  },
-  {
-    id: 5,
-    name: "Outdoor",
-    image: "/assets/chair1.png",
-    description: "Perfect sets for gardens & patios",
-  },
-  {
-    id: 6,
-    name: "Kids Room",
-    image: "/assets/chair1.png",
-    description: "Fun furniture for little ones",
-  },
-];
+
 
 export default function CategoriesGrid() {
   return (
