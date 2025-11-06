@@ -1,4 +1,4 @@
-import CategoriesPage from "./categories/page";
+import CategoriesPage from "./(client)/categories/page";
 import CategoriesCarousel from "./components/home/categories/Cat";
 import HeroSection from "./components/home/Hero";
 import FeaturedProducts from "./components/home/productf/FeaturedProducts";

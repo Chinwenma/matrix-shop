@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, ChevronDown } from "lucide-react";
-import PageBanner from "../components/banner/PageBanner";
+import PageBanner from "../../components/banner/PageBanner";
 
 interface FAQItem {
   question: string;

@@ -5,8 +5,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { categories } from "@/lib/categories";
 
-
-
 export default function CategoriesGrid() {
   return (
     <section className="py-16 bg-gray-50">
@@ -45,7 +43,7 @@ export default function CategoriesGrid() {
                 </p>
 
                 <Link
-                  href={`/categories/${category.id}`}
+                  href={`/products?category=${category.name}`}
                   className="inline-block text-sm font-medium text-white bg-gray-900 px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-300"
                 >
                   Shop Now

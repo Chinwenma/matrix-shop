@@ -1,20 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import PageBanner from "../components/banner/PageBanner";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { products } from "@/lib/products";
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import PageBanner from "@/app/components/banner/PageBanner";
+
+const categories = Array.from(new Set(products.map((p) => p.category)));
 
 export default function ProductsPage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const router = useRouter();
+  const pathname = usePathname();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const productsPerPage = 8;
+
+  // Read category from URL query on client-side only
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const categoryQuery = params.get("category");
+      setSelectedCategory(categoryQuery);
+      setCurrentPage(1);
+    }
+  }, [pathname]);
+
+  const filteredProducts = selectedCategory
+    ? products.filter((p) => p.category === selectedCategory)
+    : products;
+
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
-  const currentProducts = products.slice(startIndex, startIndex + productsPerPage);
+  const currentProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + productsPerPage
+  );
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -28,10 +52,18 @@ export default function ProductsPage() {
     }
   };
 
+  const handleCategoryClick = (category: string | null) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+
+    const query = category ? `?category=${category}` : "";
+    router.push(`/products${query}`);
+  };
+
   return (
     <main>
       <PageBanner
-        title="explore all products"
+        title={selectedCategory ?? "Explore All Products"}
         subtitle="Discover furniture for every room — crafted with elegance and comfort."
         backgroundImage="/assets/chair10.jpg"
         overlayOpacity="bg-black/80"
@@ -39,9 +71,36 @@ export default function ProductsPage() {
 
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-6">
+          {/* Category Filters */}
+          <div className="flex flex-wrap gap-3 justify-center mb-10">
+            <button
+              onClick={() => handleCategoryClick(null)}
+              className={`px-4 py-2 rounded-lg font-medium ${
+                selectedCategory === null
+                  ? "bg-teal-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              All
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                className={`px-4 py-2 rounded-lg font-medium ${
+                  selectedCategory === category
+                    ? "bg-teal-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
           {/* Product Grid */}
           <motion.div
-            key={currentPage} // Re-render when page changes
+            key={`${currentPage}-${selectedCategory}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -59,7 +118,6 @@ export default function ProductsPage() {
               >
                 <motion.div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer">
                   <div className="relative w-full h-60 overflow-hidden">
-                    {/* Product Image */}
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -68,7 +126,6 @@ export default function ProductsPage() {
                       className="object-cover hover:scale-105 transition-transform duration-500"
                     />
 
-                    {/* 🛒 Cart Icon */}
                     <button
                       className="absolute top-3 right-3 bg-white/80 backdrop-blur-md rounded-full p-2 shadow-md hover:bg-white hover:scale-110 transition-all duration-200"
                       aria-label="Add to cart"
@@ -113,7 +170,6 @@ export default function ProductsPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center items-center gap-3 mt-12"
           >
-            {/* Prev Button */}
             <button
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
@@ -126,7 +182,6 @@ export default function ProductsPage() {
               <ChevronLeft size={18} />
             </button>
 
-            {/* Page Numbers */}
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index}
@@ -141,7 +196,6 @@ export default function ProductsPage() {
               </button>
             ))}
 
-            {/* Next Button */}
             <button
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}

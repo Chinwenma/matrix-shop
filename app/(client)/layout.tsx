@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import Navbar from "./components/nav/NavBar";
-import Footer from "./components/footer/Footer";
-import Newsletter from "./components/newsletter/NewsLetter";
+import "../globals.css";
+import Navbar from "../components/nav/NavBar";
+import Footer from "../components/footer/Footer";
+import Newsletter from "../components/newsletter/NewsLetter";
 
 
 

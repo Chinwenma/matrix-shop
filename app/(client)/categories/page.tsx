@@ -1,5 +1,5 @@
-import PageBanner from "../components/banner/PageBanner";
-import CategoriesGrid from "../components/categoriesGrid/CategoryGrid";
+import PageBanner from "../../components/banner/PageBanner";
+import CategoriesGrid from "../../components/categoriesGrid/CategoryGrid";
 
 export default function CategoriesPage() {
   return (

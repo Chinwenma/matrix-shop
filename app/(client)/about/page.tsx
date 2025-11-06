@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Users, Target, HeartHandshake, Lightbulb } from "lucide-react";
-import PageBanner from "../components/banner/PageBanner";
+import PageBanner from "../../components/banner/PageBanner";
 import { image } from "framer-motion/client";
 
 export default function AboutPage() {
