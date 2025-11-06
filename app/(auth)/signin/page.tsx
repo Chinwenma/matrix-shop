@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-
+// import 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -84,12 +83,7 @@ export default function SignInPage() {
         {/* OAuth Buttons */}
         <div className="flex flex-col gap-3">
           <button className="flex items-center justify-center gap-3 bg-white/20 hover:bg-white/30 border border-white/30 rounded-lg py-2 text-white transition">
-            <Image src="/google.svg" alt="Google" width={20} height={20} />
             Sign in with Google
-          </button>
-          <button className="flex items-center justify-center gap-3 bg-white/20 hover:bg-white/30 border border-white/30 rounded-lg py-2 text-white transition">
-            <Image src="/gitlab.svg" alt="GitLab" width={20} height={20} />
-            Sign in with GitLab
           </button>
         </div>
 
