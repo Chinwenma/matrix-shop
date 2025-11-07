@@ -1,11 +1,12 @@
-"use client";
-
+import prisma from "@/lib/prisma";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { categories } from "@/lib/categories";
 
-export default function CategoriesGrid() {
+export default async function CategoriesGrid() {
+  const categories = await prisma.category.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -14,13 +15,9 @@ export default function CategoriesGrid() {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categories.map((category, index) => (
-            <motion.div
+          {categories.map((category) => (
+            <div
               key={category.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
               className="relative group overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 bg-white"
             >
               {/* Image */}
@@ -43,13 +40,13 @@ export default function CategoriesGrid() {
                 </p>
 
                 <Link
-                  href={`/products?category=${category.name}`}
+                  href={`/products/${category.slug}`}
                   className="inline-block text-sm font-medium text-white bg-gray-900 px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-300"
                 >
                   Shop Now
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
