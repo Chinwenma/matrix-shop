@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate"
+    "postinstall": "bun x prisma db push"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
