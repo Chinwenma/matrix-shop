@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ClientProvider from "./components/clientProvider";
+import "./globals.css";
+
 
 export const metadata: Metadata = {
   title: "Matrix Shop",
