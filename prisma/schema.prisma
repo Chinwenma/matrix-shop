@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -14,30 +15,31 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String   @unique
-  password  String?
-  provider  String?
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String   @unique
+  password   String?
+  provider   String?
   providerId String?
-  avatar    String?
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  avatar     String?
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Category {
-  id          String   @id @map("_id") @default(auto()) @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  slug        String   @unique                
+  slug        String    @unique
   image       String
   description String
-  products    Product[] 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
+
 model Product {
-  id          String   @id @map("_id") @default(auto()) @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   slug        String   @unique
   price       Float
@@ -52,4 +54,3 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
-
