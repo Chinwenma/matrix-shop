@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 import { Edit, PlusCircle, Trash2 } from "lucide-react";
+
+
 export const dynamic = "force-dynamic";
 
 type Props = {
@@ -47,7 +49,7 @@ export default async function CategoriesDashboardPage({ searchParams }: Props) {
         <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
         <Link
           href="/dashboard/admin/categories/new"
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+          className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all"
         >
           <PlusCircle size={20} />
           Add New
@@ -69,7 +71,7 @@ export default async function CategoriesDashboardPage({ searchParams }: Props) {
 
           <tbody>
                {categories.map((cat) => (
-                <tr key={cat.id} className="border-t">
+                <tr key={cat.slug} className="border-t">
                   <td className="px-4 py-3">
                     <div className="relative h-10 w-10 overflow-hidden rounded-md bg-slate-100">
                       {cat.image && (
@@ -87,9 +89,15 @@ export default async function CategoriesDashboardPage({ searchParams }: Props) {
                   <td className="px-4 py-3 text-slate-500">{cat.description}</td> 
             
                 <td className="px-6 py-4 text-right space-x-3">
+                    <Link
+                        className="text-blue-700 hover:underline"
+                        href={`/dashboard/admin/categories/${cat.slug}/view`}
+                      >
+                        View
+                      </Link>
                   <Link
-                    href={`/dashboard/admin/categories/${cat.id}/edit`}
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                    href={`/dashboard/admin/categories/${cat.slug}/edit`}
+                    className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-800"
                   >
                     <Edit size={16} />
                     Edit
@@ -104,8 +112,72 @@ export default async function CategoriesDashboardPage({ searchParams }: Props) {
                 </td>
               </tr>
             ))}
+             {categories.length === 0 && (
+                <tr>
+                  <td className="px-4 py-6 text-slate-500" colSpan={4}>
+                    No categories yet.
+                  </td>
+                </tr>
+              )}
           </tbody>
         </table>
+
+
+        {/* Pagination Controls*/}
+        <div className="flex flex-col gap-3 border-t p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-sm text-slate-500">
+            Page <span className="font-medium text-slate-700">{page}</span> of{" "}
+            <span className="font-medium text-slate-700">{totalPages}</span> ·{" "}
+            {total} total
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Link
+              aria-disabled={page <= 1}
+              className={`rounded-lg border px-3 py-1.5 text-sm ${
+                page <= 1
+                  ? "pointer-events-none opacity-40"
+                  : "hover:bg-slate-50"
+              }`}
+              href={q(Math.max(1, page - 1))}
+            >
+              ← Prev
+            </Link>
+
+            {/* Numbered pages (max 5) */}
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const start = Math.max(1, Math.min(page - 2, totalPages - 4));
+              const p = start + i;
+              if (p > totalPages) return null;
+              const isActive = p === page;
+              return (
+                <Link
+                  key={p}
+                  href={q(p)}
+                  className={`rounded-lg px-3 py-1.5 text-sm ${
+                    isActive
+                      ? "bg-teal-500 text-white"
+                      : "border hover:bg-slate-50"
+                  }`}
+                >
+                  {p}
+                </Link>
+              );
+            })}
+
+            <Link
+              aria-disabled={page >= totalPages}
+              className={`rounded-lg border px-3 py-1.5 text-sm ${
+                page >= totalPages
+                  ? "pointer-events-none opacity-40"
+                  : "hover:bg-slate-50"
+              }`}
+              href={q(Math.min(totalPages, page + 1))}
+            >
+              Next →
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

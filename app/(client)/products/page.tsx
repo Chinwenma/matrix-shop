@@ -145,7 +145,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     </div>
 
                     <Link
-                      href={`/products/${product.id}`}
+                      href={`/products/${product.slug}`}
                       className="mt-4 w-full py-2 rounded-lg bg-black text-white text-sm font-medium hover:bg-gray-800 transition text-center block"
                     >
                       View Product

@@ -1,51 +1,21 @@
-"use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
-import { motion } from "framer-motion";
+import prisma from "@/lib/prisma";
+import { notFound } from "next/navigation";
+import { isObjectId } from "@/lib/slugify";
+
 import { ArrowLeft, Upload } from "lucide-react";
 import Link from "next/link";
+import { updateCategoryAction } from "@/app/dashboard/actions/update";
+import Image from "next/image";
 
-export default function EditCategoryPage() {
-  const router = useRouter();
-  const params = useParams();
-  const { id } = params; // The category ID from the URL
-
-  // Dummy category data (you can later fetch from an API)
-  const [category, setCategory] = useState({
-    title: "",
-    slug: "",
-    description: "",
-    image: "",
-  });
-
-  // Simulate fetching category data
-  useEffect(() => {
-    // Replace with real API call later
-    const mockCategory = {
-      id,
-      title: "Furniture",
-      slug: "furniture",
-      description: "Elegant and modern home furniture collection.",
-      image: "/images/furniture.jpg",
-    };
-    setCategory(mockCategory);
-  }, [id]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setCategory({ ...category, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Updated Category:", category);
-
-    // Simulate update to backend
-    setTimeout(() => {
-      alert("Category updated successfully!");
-      router.push("/dashboard/categories");
-    }, 1000);
-  };
+type Props = { params: Promise<{ id: string }> };
+export default async function EditCategoryPage({ params }: Props) {
+  const { id: slug } = await params;
+  if (!slug) return notFound();
+  const where = isObjectId(slug) ? { id: slug } : { slug };
+  const item = await prisma.category.findUnique({ where });
+  if (!item) return notFound();
 
   return (
     <section className="p-8 bg-gray-50 min-h-screen">
@@ -63,12 +33,10 @@ export default function EditCategoryPage() {
         </div>
 
         {/* Form */}
-        <motion.form
-          onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+        <form
+          action={updateCategoryAction.bind(null, slug)}
           className="space-y-6"
+           encType="multipart/form-data"
         >
           <div>
             <label className="block text-gray-700 font-medium mb-2">
@@ -76,25 +44,21 @@ export default function EditCategoryPage() {
             </label>
             <input
               type="text"
-              name="title"
-              value={category.title}
-              onChange={handleChange}
+              name="name"
+              defaultValue={item.name}
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
-              Slug
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Slug</label>
             <input
-              type="text"
+              type="hidden"
               name="slug"
-              value={category.slug}
-              onChange={handleChange}
+              defaultValue={item.slug}
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
@@ -104,40 +68,79 @@ export default function EditCategoryPage() {
             </label>
             <textarea
               name="description"
-              value={category.description}
-              onChange={handleChange}
+              defaultValue={item.description ?? ""}
               rows={4}
-              required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
           </div>
 
           <div>
+            <p className="mt-1 text-sm text-slate-500">
+              Current:{" "}
+              <Image
+                src={item.image}
+                alt="image"
+                width={100}
+                height={100}
+                loading="lazy"
+              />
+            </p>
             <label className="block text-gray-700 font-medium mb-2">
-              Image URL
+              Image
             </label>
             <div className="flex items-center gap-2">
               <Upload size={20} className="text-gray-500" />
               <input
-                type="text"
+                type="file"
                 name="image"
-                value={category.image}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                id="image"
+                defaultValue={item.image}
+                // required
+                width={400}
+                height={300}
+                accept="image/*"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-end mb-4 gap-2">
             <button
               type="submit"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all font-medium shadow-sm"
+              className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-all font-medium shadow-sm"
             >
               Update Category
             </button>
+
+            <Link
+              href="/dashboard/admin/categories"
+              className="rounded-xl border px-4 py-2 hover:bg-slate-50"
+            >
+              Cancel
+            </Link>
           </div>
-        </motion.form>
+        </form>
+
+        <div className="space-y-4">
+          <div className="rounded-2xl border bg-white p-4">
+            <div className="text-sm font-medium mb-3">Current image</div>
+            <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg bg-slate-100">
+              {item.image ? (
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={400}
+                  height={300}
+                  className="object-cover w-full"
+                />
+              ) : (
+                <div className="absolute inset-0 grid place-items-center text-xs text-slate-500">
+                  No image
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

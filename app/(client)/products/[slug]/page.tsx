@@ -1,17 +1,16 @@
-import { Star } from "lucide-react";
 import Button from "@/app/components/btn/Button";
 import prisma from "@/lib/prisma";
 import ProductGallery from "@/app/components/product/ProductGallery";
 
 interface ProductDetailsProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default async function ProductDetails({ params }: ProductDetailsProps) {
-  const { id } = await params;
+  const { slug} = await params;
 
   const product = await prisma.product.findUnique({
-    where: { id },
+    where: { slug },
     include: { category: true },
   });
 
