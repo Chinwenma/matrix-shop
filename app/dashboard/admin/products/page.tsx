@@ -50,7 +50,7 @@ export default async function ProductsDashboardPage({ searchParams }: Props) {
         <h2 className="text-2xl font-bold text-gray-800">Products</h2>
         <Link
           href="/dashboard/admin/products/new"
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+          className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all"
         >
           <PlusCircle size={20} />
           Add New
@@ -98,8 +98,14 @@ export default async function ProductsDashboardPage({ searchParams }: Props) {
 
                 <td className="px-6 py-4 text-right space-x-3">
                   <Link
+                    className="text-blue-700 hover:underline"
+                    href={`/dashboard/admin/products/${prod.slug}/view`}
+                  >
+                    View
+                  </Link>
+                  <Link
                     href={`/dashboard/admin/products/${prod.id}/edit`}
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                    className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-800"
                   >
                     <Edit size={16} />
                     Edit

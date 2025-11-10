@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function AdminAnnouncementView({ params }: Props) {
+export default async function AdminCategoryView({ params }: Props) {
   const { id } = await params;
   const item = await prisma.category.findUnique({
     where: { slug: id },
