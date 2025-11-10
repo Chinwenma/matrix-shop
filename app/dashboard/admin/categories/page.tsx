@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 import { Edit, PlusCircle, Trash2 } from "lucide-react";
-
+import ConfirmDelete from "@/app/components/btn/ConfirmDelete";
 
 export const dynamic = "force-dynamic";
 
@@ -26,7 +26,13 @@ export default async function CategoriesDashboardPage({ searchParams }: Props) {
     prisma.category.count(),
     prisma.category.findMany({
       orderBy: { createdAt: "desc" },
-      select: { id: true, name: true, slug: true, image: true, description: true },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        image: true,
+        description: true,
+      },
       skip,
       take: pageSize,
     }),
@@ -70,31 +76,31 @@ export default async function CategoriesDashboardPage({ searchParams }: Props) {
           </thead>
 
           <tbody>
-               {categories.map((cat) => (
-                <tr key={cat.slug} className="border-t">
-                  <td className="px-4 py-3">
-                    <div className="relative h-10 w-10 overflow-hidden rounded-md bg-slate-100">
-                      {cat.image && (
-                        <Image
-                          src={cat.image}
-                          alt={cat.name}
-                          fill
-                          className="object-cover"
-                        />
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 font-medium">{cat.name}</td>
-                  <td className="px-4 py-3 text-slate-500">{cat.slug}</td>
-                  <td className="px-4 py-3 text-slate-500">{cat.description}</td> 
-            
-                <td className="px-6 py-4 text-right space-x-3">
-                    <Link
-                        className="text-blue-700 hover:underline"
-                        href={`/dashboard/admin/categories/${cat.slug}/view`}
-                      >
-                        View
-                      </Link>
+            {categories.map((cat) => (
+              <tr key={cat.slug} className="border-t">
+                <td className="px-4 py-3">
+                  <div className="relative h-10 w-10 overflow-hidden rounded-md bg-slate-100">
+                    {cat.image && (
+                      <Image
+                        src={cat.image}
+                        alt={cat.name}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
+                </td>
+                <td className="px-4 py-3 font-medium">{cat.name}</td>
+                <td className="px-4 py-3 text-slate-500">{cat.slug}</td>
+                <td className="px-4 py-3 text-slate-500">{cat.description}</td>
+
+                <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                  <Link
+                    className="text-blue-700 hover:underline"
+                    href={`/dashboard/admin/categories/${cat.slug}/view`}
+                  >
+                    View
+                  </Link>
                   <Link
                     href={`/dashboard/admin/categories/${cat.slug}/edit`}
                     className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-800"
@@ -102,26 +108,25 @@ export default async function CategoriesDashboardPage({ searchParams }: Props) {
                     <Edit size={16} />
                     Edit
                   </Link>
-                  <button
-                    // onClick={() => handleDelete(cat.id)}
-                    className="inline-flex items-center gap-1 text-red-600 hover:text-red-800"
-                  >
-                    <Trash2 size={16} />
-                    Delete
-                  </button>
+                  <ConfirmDelete
+                    title="Delete announcement"
+                    message={`This will permanently delete “${cat.name}”.`}
+                    busyText="Deleting..."
+                    id={cat.id}
+                    module="announcement"
+                  />
                 </td>
               </tr>
             ))}
-             {categories.length === 0 && (
-                <tr>
-                  <td className="px-4 py-6 text-slate-500" colSpan={4}>
-                    No categories yet.
-                  </td>
-                </tr>
-              )}
+            {categories.length === 0 && (
+              <tr>
+                <td className="px-4 py-6 text-slate-500" colSpan={4}>
+                  No categories yet.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
-
 
         {/* Pagination Controls*/}
         <div className="flex flex-col gap-3 border-t p-4 sm:flex-row sm:items-center sm:justify-between">
