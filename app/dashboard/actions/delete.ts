@@ -20,20 +20,6 @@ export async function deleteCategory(id: string) {
 }
 
 
-
-// export async function deleteHomily(id: string) {
-//   if (!id) return;
-
-//   try {
-//     await prisma.homily.delete({ where: { id } });
-//   } catch (e: any) {
-//     if (!isRecordNotFound(e)) throw e;
-//   }
-//   revalidatePath("/dashboard/bishop/homily");
-//   revalidatePath("/homily");
-//   revalidatePath("/");
-// }
-
 // export async function deleteClergy(id: string) {
 //   if (!id) return;
 //   try {
@@ -45,16 +31,16 @@ export async function deleteCategory(id: string) {
 //   revalidatePath("/clergy");
 // }
 
-// export async function deleteEvent(id: string) {
-//   if (!id) return;
+export async function deleteProduct(id: string) {
+  if (!id) return;
 
-//   try {
-//     await prisma.event.delete({ where: {id} });
-//   } catch (e: any) {
-//     if (!isRecordNotFound(e)) throw e;
-//   }
-//   revalidatePath("/dashboard/admin/events");
-//   revalidatePath("/event");
-//   revalidatePath("/");
-// }
+  try {
+    await prisma.product.delete({ where: {id} });
+  } catch (e: any) {
+    if (!isRecordNotFound(e)) throw e;
+  }
+  revalidatePath("/dashboard/admin/products");
+  revalidatePath("/products");
+  revalidatePath("/");
+}
 

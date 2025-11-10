@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 // import { isObjectId } from "@/lib/slugify";
 import ImageKit from "imagekit";
 import prisma from "@/lib/prisma";
+import { isObjectId } from "@/lib/slugify";
 
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_KEY ?? "",
@@ -84,4 +85,82 @@ export async function updateCategoryAction(
   revalidatePath("/dashboard/admin/categories");
 //   revalidatePath("/");
   redirect("/dashboard/admin/categories");
+}
+
+
+export async function updateProductAction(slugOrId: string, formData: FormData) {
+  const name = String(formData.get("name") || "").trim();
+  const slug = String(formData.get("slug") || "").trim();
+  const description = String(formData.get("description") || "").trim();
+  const brand = String(formData.get("brand") || "").trim();
+  const price = parseFloat(String(formData.get("price") || "0"));
+  const oldPrice = formData.get("oldPrice")
+    ? parseFloat(String(formData.get("oldPrice")))
+    : undefined;
+  const categoryId = String(formData.get("categoryId") || "");
+
+  if (!name || !slug || !description || !categoryId) {
+    throw new Error("Name, slug, description, and category are required");
+  }
+
+  const where = isObjectId(slugOrId) ? { id: slugOrId } : { slug: slugOrId };
+  const existingProduct = await prisma.product.findUnique({ where });
+  if (!existingProduct) throw new Error("Product not found");
+
+  if (slug !== existingProduct.slug) {
+    const slugExists = await prisma.product.findUnique({ where: { slug } });
+    if (slugExists) throw new Error("Slug already exists");
+  }
+
+  // Handle main image
+  let imageUrl = existingProduct.image;
+  const imageFile = formData.get("image");
+  if (imageFile instanceof File && imageFile.size > 0) {
+    const buffer = Buffer.from(await imageFile.arrayBuffer());
+    const uploadResponse = await imagekit.upload({
+      file: buffer,
+      fileName: `product-image-${slug}-${Date.now()}.${imageFile.name.split(".").pop()}`,
+      folder: "/matrix-shop/products/main",
+    });
+    imageUrl = uploadResponse.url;
+  }
+
+  // Handle gallery images
+  let imageUrls = existingProduct.images;
+  const imageFiles = formData.getAll("images");
+  if (imageFiles.some((f) => f instanceof File && f.size > 0)) {
+    imageUrls = [];
+    for (const file of imageFiles) {
+      if (file instanceof File && file.size > 0) {
+        const buffer = Buffer.from(await file.arrayBuffer());
+        const uploadResponse = await imagekit.upload({
+          file: buffer,
+          fileName: `product-image-${slug}-${Date.now()}.${file.name.split(".").pop()}`,
+          folder: "/matrix-shop/products/gallery",
+        });
+        imageUrls.push(uploadResponse.url);
+      }
+    }
+  }
+
+  await prisma.product.update({
+    where,
+    data: {
+      name,
+      slug,
+      description,
+      brand,
+      price,
+      oldPrice,
+      image: imageUrl,
+      images: imageUrls,
+      categoryId,
+    },
+  });
+
+  revalidatePath("/dashboard/admin/products");
+  revalidatePath("/products");
+  revalidatePath("/");
+
+  redirect("/dashboard/admin/products");
 }

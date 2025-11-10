@@ -1,6 +1,3 @@
-
-
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // "use client";
 
@@ -10,9 +7,9 @@
 
 // type Props = {
 //   children?: React.ReactNode;
-//   label?: string;                    
-//   title?: string;                    
-//   message?: string;                 
+//   label?: string;
+//   title?: string;
+//   message?: string;
 //   busyText?: string;
 //   id: string;
 //   module: string;
@@ -37,7 +34,7 @@
 //         case 'announcement':
 //           await deleteCategory(id)
 //           break;
-          
+
 //             case 'homily':
 //           await deleteHomily(id)
 //           break;
@@ -54,7 +51,7 @@
 //     if (error.code =="P2025"){
 //       toast.error("The item is not found or has been deleted")
 //     }else{
-//       toast.error("Deleting failed, check your internet connection and retry!")    
+//       toast.error("Deleting failed, check your internet connection and retry!")
 //     }
 //   }
 //     setSubmitting(false)
@@ -109,12 +106,11 @@
 //   );
 // }
 
-
 "use client";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Trash2 } from "lucide-react";
-import { deleteCategory } from "@/app/dashboard/actions/delete";
+import { deleteCategory, deleteProduct } from "@/app/dashboard/actions/delete";
 
 type Props = {
   title?: string;
@@ -141,7 +137,9 @@ export default function ConfirmDelete({
         case "announcement":
           await deleteCategory(id);
           break;
-        // Add other cases here when needed
+        case "product":
+          await deleteProduct(id);
+          break;
         default:
           break;
       }
@@ -151,7 +149,9 @@ export default function ConfirmDelete({
       if (error.code === "P2025") {
         toast.error("The item is not found or has been deleted");
       } else {
-        toast.error("Deleting failed, check your internet connection and retry!");
+        toast.error(
+          "Deleting failed, check your internet connection and retry!"
+        );
       }
     } finally {
       setSubmitting(false);
@@ -164,7 +164,7 @@ export default function ConfirmDelete({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-1 text-red-600 hover:text-red-800"
+        className="inline-flex items-center text-center hover:cursor-pointer gap-1 text-red-600 hover:text-red-800"
       >
         <Trash2 size={16} />
         Delete

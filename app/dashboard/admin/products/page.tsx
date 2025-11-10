@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 import { Edit, PlusCircle, Trash2 } from "lucide-react";
+import ConfirmDelete from "@/app/components/btn/ConfirmDelete";
 
 export const dynamic = "force-dynamic";
 
@@ -96,7 +97,7 @@ export default async function ProductsDashboardPage({ searchParams }: Props) {
                   ${prod.price.toFixed(2)}
                 </td>
 
-                <td className="px-6 py-4 text-right space-x-3">
+                 <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
                   <Link
                     className="text-blue-700 hover:underline"
                     href={`/dashboard/admin/products/${prod.slug}/view`}
@@ -104,19 +105,19 @@ export default async function ProductsDashboardPage({ searchParams }: Props) {
                     View
                   </Link>
                   <Link
-                    href={`/dashboard/admin/products/${prod.id}/edit`}
+                    href={`/dashboard/admin/products/${prod.slug}/edit`}
                     className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-800"
                   >
                     <Edit size={16} />
                     Edit
                   </Link>
-                  <button
-                    // onClick={() => handleDelete(prod.id)}
-                    className="inline-flex items-center gap-1 text-red-600 hover:text-red-800"
-                  >
-                    <Trash2 size={16} />
-                    Delete
-                  </button>
+                  <ConfirmDelete
+                    title="Delete Product"
+                    message={`This will permanently delete “${prod.name}”.`}
+                    busyText="Deleting..."
+                    id={prod.id}
+                    module="product"
+                  />
                 </td>
               </tr>
             ))}
