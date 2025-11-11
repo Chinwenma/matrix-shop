@@ -40,7 +40,7 @@ export default async function CategoriesGrid() {
                 </p>
 
                 <Link
-                  href={`/products/${category.slug}`}
+                href={`/products?category=${encodeURIComponent(category.name)}`}
                   className="inline-block text-sm font-medium text-white bg-gray-900 px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-300"
                 >
                   Shop Now

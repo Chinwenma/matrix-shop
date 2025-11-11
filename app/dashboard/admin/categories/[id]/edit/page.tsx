@@ -36,7 +36,7 @@ export default async function EditCategoryPage({ params }: Props) {
         <form
           action={updateCategoryAction.bind(null, slug)}
           className="space-y-6"
-           encType="multipart/form-data"
+          //  encType="multipart/form-data"
         >
           <div>
             <label className="block text-gray-700 font-medium mb-2">
@@ -94,7 +94,7 @@ export default async function EditCategoryPage({ params }: Props) {
                 type="file"
                 name="image"
                 id="image"
-                defaultValue={item.image}
+                // defaultValue={item.image}
                 // required
                 width={400}
                 height={300}

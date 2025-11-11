@@ -1,35 +1,10 @@
 "use client";
 
+import { orders } from "@/lib/orders";
 import { motion } from "framer-motion";
 import { Package, Truck, CheckCircle, XCircle, Clock } from "lucide-react";
 import Link from "next/link";
 
-const orders = [
-  {
-    id: "ORD-001",
-    date: "2025-11-02",
-    total: "$450",
-    status: "Delivered",
-    items: [
-      { name: "Modern Sofa", qty: 1 },
-      { name: "Coffee Table", qty: 1 },
-    ],
-  },
-  {
-    id: "ORD-002",
-    date: "2025-11-04",
-    total: "$199",
-    status: "Pending",
-    items: [{ name: "Office Chair", qty: 1 }],
-  },
-  {
-    id: "ORD-003",
-    date: "2025-10-28",
-    total: "$120",
-    status: "Canceled",
-    items: [{ name: "Nightstand", qty: 2 }],
-  },
-];
 
 export default function MyOrdersPage() {
   return (
@@ -46,7 +21,7 @@ export default function MyOrdersPage() {
           <div className="space-y-6">
             {orders.map((order, index) => (
               <motion.div
-                key={order.id}
+                key={order.status}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -55,9 +30,9 @@ export default function MyOrdersPage() {
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                    {/* <h3 className="text-lg font-semibold text-gray-800">
                       Order #{order.id}
-                    </h3>
+                    </h3> */}
                     <p className="text-sm text-gray-500">
                       Placed on {order.date}
                     </p>
@@ -79,7 +54,7 @@ export default function MyOrdersPage() {
                     Total: <span className="text-gray-900">{order.total}</span>
                   </p>
                   <Link
-                    href={`/myorders/${order.id}`}
+                    href={`/myorders/${order.status.toLowerCase()}`}
                     className="text-sm text-gray-900 font-medium hover:underline"
                   >
                     View Details

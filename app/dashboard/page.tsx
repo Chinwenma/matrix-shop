@@ -5,11 +5,11 @@ import Link from "next/link";
 
 export default async function DashboardHome() {
   // Fetch counts from the database
-  const [productCount, categoryCount, userCount] = await Promise.all([
+  const [productCount, categoryCount, userCount, orderCount] = await Promise.all([
     prisma.product.count(),
     prisma.category.count(),
     prisma.user.count(),
-    // prisma.order.count() // Uncomment if you have Orders table
+    prisma.order.count() 
   ]);
 
   // Fetch recent users
@@ -48,7 +48,7 @@ export default async function DashboardHome() {
         >
           <span className="text-3xl font-bold">🛒</span>
           <span className="mt-2 font-medium text-gray-700">Orders</span>
-          <span className="mt-1 text-teal-600 font-bold text-lg">0</span> {/* Replace with Orders count */}
+          <span className="mt-1 text-teal-600 font-bold text-lg">{orderCount}</span>
         </Link>
 
         <Link

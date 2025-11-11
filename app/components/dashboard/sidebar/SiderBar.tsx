@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   ShoppingBag,
   List,
-  Users,
   LogOut,
   Menu,
   X,
@@ -19,7 +18,8 @@ const links = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/admin/products", label: "Products", icon: ShoppingBag },
   { href: "/dashboard/admin/categories", label: "Categories", icon: List },
-  { href: "/dashboard/admin/users", label: "Users", icon: Users },
+  { href: "/dashboard/admin/orders", label: "Orders", icon: ShoppingBag },
+  // { href: "/dashboard/admin/users", label: "Users", icon: Users },
 ];
 
 export default function Sidebar() {
@@ -47,14 +47,14 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed bottom-0 left-0 h-screen bg-white shadow-md flex flex-col justify-between
-          w-64 z-50 transition-transform duration-300
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0 md:static md:w-64
-        `}
+    fixed left-0 top-0 h-screen bg-white shadow-md flex flex-col justify-between
+    w-64 z-50 transition-transform duration-300
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0
+  `}
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b flex justify-between items-center">
+        <div className="px-6 py-4 border-b flex justify-between items-center shrink-0">
           <h2 className="text-xl font-bold text-gray-800">Matrix Admin</h2>
           <button className="md:hidden" onClick={() => setIsOpen(false)}>
             <X size={20} />
@@ -62,14 +62,14 @@ export default function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2 overflow-hidden">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto md:overflow-y-hidden">
           {links.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
                 pathname === href
-                  ? "bg-gray-900 text-white"
+                  ? "bg-teal-900 text-white"
                   : "text-gray-700 hover:bg-gray-200"
               }`}
             >
@@ -80,7 +80,7 @@ export default function Sidebar() {
         </nav>
 
         {/* Bottom User Info */}
-        <div className="p-4 border-t flex items-center justify-between bg-white">
+        <div className="p-4 border-t flex items-center justify-between bg-white shrink-0">
           <div className="flex items-center gap-3">
             <Image
               src="/assets/profile.jpg"
