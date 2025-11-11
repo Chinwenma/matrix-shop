@@ -4,13 +4,14 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { ShoppingCart, User, X, Menu } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "@/app/constants/Constant";
-
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 const Navbar: FC = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setIsOpen(false), []);
-
+  const { data, status } = useSession();
   useEffect(() => {
     const handleScroll = () => setIsSticky(window.scrollY > 90);
     window.addEventListener("scroll", handleScroll);
@@ -80,12 +81,23 @@ const Navbar: FC = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="hidden sm:inline text-sm font-medium">Cart</span>
           </Link>
-          <Link
-            href="/signin"
-            className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition"
-          >
-            <User className="w-5 h-5 text-gray-700 hover:text-teal-600 cursor-pointer transition" />
-          </Link>
+          {status === "unauthenticated" && (
+            <Link
+              href="/signin"
+              className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition"
+            >
+              <User className="w-5 h-5 text-gray-700 hover:text-teal-600 cursor-pointer transition" />
+            </Link>
+          )}
+
+          {
+            status === "authenticated" && <div>
+              <Image src={data?.user?.image || "/default-profile.png"} alt="Profile" width={32} height={32} className="rounded-full cursor-pointer"/>
+              <p>{data.user.name}</p>
+              <Link href="/myorders" className="text-sm text-gray-700 hover:text-teal-600 transition">Orders</Link>
+              <button onClick={()=>signOut()}>Signout</button>
+            </div>
+          }
 
           {/* Mobile Menu Button */}
           <button

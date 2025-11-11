@@ -37,7 +37,7 @@ export default function SignInPage() {
       {/* Frosted Glass Login Card */}
       <div className="w-full max-w-md backdrop-blur-lg bg-white/20 border border-white/30 shadow-2xl rounded-2xl p-8 md:p-10">
         <h2 className="text-3xl font-bold text-white mb-8 text-center drop-shadow-md">
-          Welcome Back {status}
+          Welcome Back
         </h2>
 
         <form className="flex flex-col gap-5" onSubmit={handleSubmit}>

@@ -7,4 +7,7 @@ declare module "next-auth" {
     role?: string;
     user: any;
   }
+  interface Profile {
+    picture?: string;
+  }
 }
