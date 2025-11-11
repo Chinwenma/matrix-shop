@@ -33,11 +33,11 @@ export default function SignInPage() {
     if (res?.error) setError("Invalid credentials");
   };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-cover bg-center p-4 bg-[url('/assets/chair1.jpg')] bg-cover bg-center">
+    <div className="flex min-h-screen items-center justify-center bg-cover p-4 bg-[url('/assets/chair1.jpg')] bg-center">
       {/* Frosted Glass Login Card */}
       <div className="w-full max-w-md backdrop-blur-lg bg-white/20 border border-white/30 shadow-2xl rounded-2xl p-8 md:p-10">
         <h2 className="text-3xl font-bold text-white mb-8 text-center drop-shadow-md">
-          Welcome Back
+          Welcome Back {status}
         </h2>
 
         <form className="flex flex-col gap-5" onSubmit={handleSubmit}>

@@ -10,15 +10,19 @@ export async function middleware(req: NextRequest) {
 
   const token = await getToken({ req, secret });
   const authUrl = new URL("/signin", req.url);
+console.log("token",token);
 
   if (!token) return NextResponse.redirect(authUrl);
 
-//   const role = token.role as string;
-//   const rolePath = `/dashboard/${role.toLowerCase()}`;
-
-//   if (!currentPath.startsWith(rolePath)) {
-//     return NextResponse.redirect(new URL(rolePath, req.url));
-//   }
+  const role = token.role as string;
+  if(!role) return NextResponse.redirect(authUrl);
+  if(role !== "ADMIN" && role !== "CUSTOMER") return NextResponse.redirect(authUrl);
+  
+  const customerNotAllowed = role === "CUSTOMER" && currentPath.startsWith("/dashboard");
+  if (customerNotAllowed) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+ 
   return NextResponse.next();
 }
 export const config = {

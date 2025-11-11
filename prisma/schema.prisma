@@ -21,20 +21,19 @@ enum UserRole {
 }
 
 model User {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String
-  email      String    @unique
+  email      String   @unique
   password   String?
   provider   String?
   providerId String?
   avatar     String?
-  role       UserRole  @default(CUSTOMER) // enum: ADMIN or CUSTOMER
-  isActive   Boolean   @default(true)
-  orders     Order[]   // back-relation for customer orders
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  role       UserRole @default(CUSTOMER) // enum: ADMIN or CUSTOMER
+  isActive   Boolean  @default(true)
+  orders     Order[] // back-relation for customer orders
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
-
 
 model Category {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
@@ -66,24 +65,24 @@ model Product {
 }
 
 model OrderItem {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  orderId   String   @db.ObjectId
-  order     Order    @relation(fields: [orderId], references: [id])
-  productId String   @db.ObjectId
-  product   Product  @relation(fields: [productId], references: [id])
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String  @db.ObjectId
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
   quantity  Int
   price     Float
 }
 
 model Order {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String      @db.ObjectId
-  user        User        @relation(fields: [userId], references: [id])
-  products    OrderItem[]
-  total       Float
-  status      String      @default("pending")
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String      @db.ObjectId
+  user      User        @relation(fields: [userId], references: [id])
+  products  OrderItem[]
+  total     Float
+  status    String      @default("pending")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 // model Product {
@@ -123,5 +122,3 @@ model Order {
 //   quantity  Int
 //   price     Float
 // }
-
-

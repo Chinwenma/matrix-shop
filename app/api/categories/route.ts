@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const categories = await prisma.category.findMany({
-      orderBy: { name: "asc" }, // optional: sort alphabetically
+      orderBy: { name: "asc" }, 
       select: {
         id: true,
         name: true,

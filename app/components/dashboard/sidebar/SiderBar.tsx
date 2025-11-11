@@ -22,7 +22,7 @@ const links = [
   // { href: "/dashboard/admin/users", label: "Users", icon: Users },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({user}:{user: {avatar?:string}}) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false); // for mobile sidebar
 
@@ -83,7 +83,7 @@ export default function Sidebar() {
         <div className="p-4 border-t flex items-center justify-between bg-white shrink-0">
           <div className="flex items-center gap-3">
             <Image
-              src="/assets/profile.jpg"
+              src={user.avatar?? '/assets/chair4.png'}
               alt="Profile Picture"
               width={35}
               height={35}
