@@ -15,7 +15,7 @@ export default function Footer() {
                 alt="Comforty Logo"
                 width={22}
                 height={22}
-                className="w-6 h-6"
+                className="w-8 h-8"
               />
             </div>
             <h2 className="text-lg font-semibold text-gray-800">Matrix Shop</h2>
@@ -29,28 +29,51 @@ export default function Footer() {
         {/* Category */}
         <div>
           <h4 className="text-xs font-semibold text-gray-700 mb-3 tracking-wider">
-            CATEGORY
+            CATEGORIES
           </h4>
-          <ul className="space-y-1 text-gray-500 text-sm">
+          <ul className="space-y-1 text-gray-500 text-sm ">
             <li>
-              <Link href="#">Sofa</Link>
-            </li>
-            <li>
-              <Link href="#">Armchair</Link>
-            </li>
-            <li>
-              <Link href="#">Wing Chair</Link>
-            </li>
-            <li>
-              <Link href="#" className="text-teal-600 hover:underline">
-                Desk Chair
+              <Link
+                href="/categories"
+                className="hover:text-teal-600 hover:underline"
+              >
+                Bed Room
               </Link>
             </li>
             <li>
-              <Link href="#">Wooden Chair</Link>
+              <Link
+                href="/categories"
+                className="hover:text-teal-600 hover:underline"
+              >
+                Living Room
+              </Link>
             </li>
             <li>
-              <Link href="#">Park Bench</Link>
+              <Link
+                href="/categories"
+                className="hover:text-teal-600 hover:underline"
+              >
+                Kitchen
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/categories"
+                className="hover:text-teal-600 hover:underline"
+              >
+                Children's Room{" "}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/categories"
+                className="hover:text-teal-600 hover:underline"
+              >
+                Out Door
+              </Link>
+            </li>
+            <li>
+              <Link href="/categories">Office</Link>
             </li>
           </ul>
         </div>
@@ -62,16 +85,27 @@ export default function Footer() {
           </h4>
           <ul className="space-y-1 text-gray-500 text-sm">
             <li>
-              <Link href="#">Help & Support</Link>
+              <Link href="/contact" className="hover:text-teal-600 hover:underline">
+                Help & Support
+              </Link>
             </li>
             <li>
-              <Link href="#">Terms & Conditions</Link>
+              <Link href="/contact" className="hover:text-teal-600 hover:underline">
+                Terms & Conditions
+              </Link>
             </li>
             <li>
-              <Link href="#">Privacy Policy</Link>
+              <Link href="/contact" className="hover:text-teal-600 hover:underline">
+                Privacy Policy
+              </Link>
             </li>
             <li>
-              <Link href="#">Help</Link>
+              <Link
+                href="/contact"
+                className="hover:text-teal-600 hover:underline"
+              >
+                Help
+              </Link>
             </li>
           </ul>
         </div>
@@ -81,7 +115,7 @@ export default function Footer() {
           <h4 className="text-xs font-semibold text-gray-700 mb-3 tracking-wider">
             NEWSLETTER
           </h4>
-          <form className="flex gap-2 mb-2">
+          <form className="flex gap-2 mb-2" >
             <input
               type="email"
               placeholder="Your email"
@@ -105,12 +139,9 @@ export default function Footer() {
       <div className="mt-6 border-t pt-3">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-gray-500 text-xs text-center md:text-left">
-            © 2021 - Blogy – Designed & Developed by{" "}
-            <Link
-              href="#"
-              className="text-teal-600 hover:underline font-medium"
-            >
-              Zakirsoft
+            © {new Date().getFullYear()} - Matrix-Shop – Developed by{" "}
+            <Link href="" className="text-teal-600 hover:underline font-medium">
+              De_Tech_Matrix
             </Link>
           </p>
           <div className="flex gap-4 mt-3 text-gray-500 items-center">
@@ -128,7 +159,7 @@ export default function Footer() {
             </Link>
           </div>
           {/* <div className="flex items-center gap-2 opacity-70">
-            <Image src="/payments/paypal.png" alt="PayPal" width={36} height={20} />
+            <Image src="/assets/paypal.png" alt="PayPal" width={36} height={20} className="w-8 h-8"/>
             <Image src="/payments/mastercard.png" alt="Mastercard" width={36} height={20} />
             <Image src="/payments/visa.png" alt="Visa" width={36} height={20} />
           </div> */}
