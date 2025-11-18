@@ -3,13 +3,16 @@ import Link from "next/link";
 import prisma from "@/lib/prisma";
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import PageBanner from "@/app/components/banner/PageBanner";
+import ShoppingCartIcon from "@/app/components/product/Cart";
 
 // ✅ Next.js 15 now makes searchParams a Promise
 interface ProductsPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+export default async function ProductsPage({
+  searchParams,
+}: ProductsPageProps) {
   // ✅ Await searchParams to unwrap the Promise
   const params = await searchParams;
 
@@ -121,7 +124,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                       className="absolute top-3 right-3 bg-white/80 backdrop-blur-md rounded-full p-2 shadow-md hover:bg-white hover:scale-110 transition-all duration-200"
                       aria-label="Add to cart"
                     >
-                      <ShoppingCart size={18} className="text-gray-800" />
+                      <ShoppingCartIcon productId={product.id} />
                     </button>
                   </div>
 

@@ -1,12 +1,14 @@
 "use client";
 
-import { FC, useCallback, useEffect, useState } from "react";
-import { ShoppingCart, User, X, Menu } from "lucide-react";
+import { FC, useCallback, useContext, useEffect, useState } from "react";
+import { ShoppingCart, User, X, Menu, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "@/app/constants/Constant";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { Context } from "../contextProvider";
 const Navbar: FC = () => {
+  const { theme } = useContext(Context);
   const [isSticky, setIsSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
@@ -74,6 +76,11 @@ const Navbar: FC = () => {
 
         {/* Right Side Icons */}
         <div className="flex items-center space-x-4 md:space-x-6 shrink-0">
+          {theme.value === "light" ? (
+            <Moon onClick={() => theme.setter("dark")} />
+          ) : (
+            <Sun onClick={() => theme.setter("light")} />
+          )}
           <Link
             href="/cart"
             className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition"
@@ -90,14 +97,25 @@ const Navbar: FC = () => {
             </Link>
           )}
 
-          {
-            status === "authenticated" && <div>
-              <Image src={data?.user?.image || "/default-profile.png"} alt="Profile" width={32} height={32} className="rounded-full cursor-pointer"/>
+          {status === "authenticated" && (
+            <div>
+              <Image
+                src={data?.user?.image || "/default-profile.png"}
+                alt="Profile"
+                width={32}
+                height={32}
+                className="rounded-full cursor-pointer"
+              />
               <p>{data.user.name}</p>
-              <Link href="/myorders" className="text-sm text-gray-700 hover:text-teal-600 transition">Orders</Link>
-              <button onClick={()=>signOut()}>Signout</button>
+              <Link
+                href="/myorders"
+                className="text-sm text-gray-700 hover:text-teal-600 transition"
+              >
+                Orders
+              </Link>
+              <button onClick={() => signOut()}>Signout</button>
             </div>
-          }
+          )}
 
           {/* Mobile Menu Button */}
           <button
