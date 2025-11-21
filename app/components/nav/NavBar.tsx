@@ -1,12 +1,13 @@
 "use client";
 
 import { FC, useCallback, useContext, useEffect, useState } from "react";
-import { ShoppingCart, User, X, Menu, Moon, Sun } from "lucide-react";
+import { User, X, Menu, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "@/app/constants/Constant";
-import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { Context } from "../contextProvider";
+import ProfileDropdown from "../ProfileDropDown";
+import CartIcon from "../Cart";
 const Navbar: FC = () => {
   const { theme } = useContext(Context);
   const [isSticky, setIsSticky] = useState(false);
@@ -29,11 +30,10 @@ const Navbar: FC = () => {
 
   return (
     <header
-      className={`w-full border-b transition-all duration-300 z-50 ${
-        isSticky
-          ? "fixed top-0 left-0 bg-white shadow-md animate-slideDown"
-          : "relative"
-      }`}
+      className={`w-full border-b transition-all duration-300 z-50 ${isSticky
+        ? "fixed top-0 left-0 bg-white shadow-md animate-slideDown"
+        : "relative"
+        }`}
     >
       {/* 🔹 Top Bar */}
       <div className="hidden md:flex justify-between items-center bg-[#2b2541] text-gray-300 text-sm px-12 py-2">
@@ -81,13 +81,6 @@ const Navbar: FC = () => {
           ) : (
             <Sun onClick={() => theme.setter("light")} />
           )}
-          <Link
-            href="/cart"
-            className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition"
-          >
-            <ShoppingCart className="w-5 h-5" />
-            <span className="hidden sm:inline text-sm font-medium">Cart</span>
-          </Link>
           {status === "unauthenticated" && (
             <Link
               href="/signin"
@@ -98,22 +91,14 @@ const Navbar: FC = () => {
           )}
 
           {status === "authenticated" && (
-            <div>
-              <Image
-                src={data?.user?.image || "/default-profile.png"}
-                alt="Profile"
-                width={32}
-                height={32}
-                className="rounded-full cursor-pointer"
-              />
-              <p>{data.user.name}</p>
+            <div className="flex gap-3">
               <Link
-                href="/myorders"
-                className="text-sm text-gray-700 hover:text-teal-600 transition"
+                href="/cart"
+                className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition"
               >
-                Orders
+                <CartIcon email={data.user.email} />
               </Link>
-              <button onClick={() => signOut()}>Signout</button>
+              <ProfileDropdown data={data} />
             </div>
           )}
 
@@ -133,9 +118,8 @@ const Navbar: FC = () => {
       {/* Mobile Nav Drawer */}
       <div
         id="mobile-menu"
-        className={`fixed top-0 bg-[#2b2541] right-0 h-full w-[75%] sm:w-[60%] text-white z-40 transform ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 ease-in-out flex flex-col px-6 py-8 items-center`}
+        className={`fixed top-0 bg-[#2b2541] right-0 h-full w-[75%] sm:w-[60%] text-white z-40 transform ${isOpen ? "translate-x-0" : "translate-x-full"
+          } transition-transform duration-300 ease-in-out flex flex-col px-6 py-8 items-center`}
         role="dialog"
         aria-modal="true"
       >

@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="flex items-center gap-2 mb-2">
             <div className="bg-teal-600  rounded-full p-4">
               <Image
-                src="/assets/myLogo.png"
+                src="/assets/MyLogo.png"
                 alt="Comforty Logo"
                 width={22}
                 height={22}
@@ -61,7 +61,7 @@ export default function Footer() {
                 href="/categories"
                 className="hover:text-teal-600 hover:underline"
               >
-                Children's Room{" "}
+                Children{"'"}s Room{" "}
               </Link>
             </li>
             <li>

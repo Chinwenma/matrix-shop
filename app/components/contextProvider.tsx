@@ -1,24 +1,10 @@
 "use client";
-import { createContext, ReactNode, useReducer, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { ToastContainer } from "react-toastify";
-// export const cartReducer = (state: any, action: any) => {
-//   switch (action.type) {
-//     case "ADD_ITEM":
-//       return {
-//         ...state,
-//         [action.payload.id]: action.payload,
-//       };
-//     case "REMOVE_ITEM":
-//       const newState = { ...state };
-//       delete newState[action.payload.id];
-//       return newState;
-//     default:
-//       return state;
-//   }
-// };
+
 export const Context = createContext({
-  //   cart: {} as [any, React.Dispatch<any>],
-  theme: { value: "light", setter: (theme: string) => {} },
+  count: { value: 0, setter: (count: number) => { } },
+  theme: { value: "light", setter: (theme: string) => { } },
 });
 
 function ContextProvider({
@@ -26,12 +12,12 @@ function ContextProvider({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  //   const cart = useReducer(cartReducer, {});
+  const [count, setCount] = useState(0);
   const [theme, setTheme] = useState("light");
   return (
     <Context.Provider
       value={{
-        // cart,
+        count: { value: count, setter: setCount },
         theme: { value: theme, setter: setTheme },
       }}
     >

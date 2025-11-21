@@ -1,13 +1,13 @@
-import Button from "@/app/components/btn/Button";
 import prisma from "@/lib/prisma";
 import ProductGallery from "@/app/components/product/ProductGallery";
+import ShoppingCartIcon from "@/app/components/product/Cart";
 
 interface ProductDetailsProps {
   params: Promise<{ slug: string }>;
 }
 
 export default async function ProductDetails({ params }: ProductDetailsProps) {
-  const { slug} = await params;
+  const { slug } = await params;
 
   const product = await prisma.product.findUnique({
     where: { slug },
@@ -48,7 +48,7 @@ export default async function ProductDetails({ params }: ProductDetailsProps) {
         </div>
 
         <div className="flex items-center space-x-3 mb-6">
-          <Button>Add to Cart</Button>
+          <ShoppingCartIcon productId={product.id} type="button" />
         </div>
 
         {product.description && (

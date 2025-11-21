@@ -104,8 +104,6 @@ const authOptions: NextAuthOptions = {
         role: token.role as string,
         id: token.id as string,
       };
-      role: token.role as string,
-        (session.accessToken = token.accessToken as string);
       session.id = token.sub as string;
       return session;
     },

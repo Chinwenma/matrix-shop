@@ -7,7 +7,7 @@ import { Package, Truck, CheckCircle, XCircle, Clock } from "lucide-react";
 import Link from "next/link";
 
 
-export default function OrdersPage({orders}: {orders: Order[]}) {
+export default function OrdersPage({ orders }: { orders: Order[] }) {
   return (
     <section className="py-16 bg-gray-50 min-h-screen">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,21 +41,12 @@ export default function OrdersPage({orders}: {orders: Order[]}) {
 
                   <StatusBadge status={order.status} />
                 </div>
-{/* 
-                <div className="border-t pt-4 space-y-2">
-                  {order.products.map((item, i) => (
-                    <p key={i} className="text-gray-700 text-sm">
-                      {item.qty} × {item.name}
-                    </p>
-                  ))}
-                </div> */}
-
                 <div className="flex justify-between items-center mt-4">
                   <p className="text-gray-800 font-semibold">
                     Total: <span className="text-gray-900">{order.total}</span>
                   </p>
                   <Link
-                    href={`/myorders/${order.status.toLowerCase()}`}
+                    href={`/myorders/${order.id}`}
                     className="text-sm text-gray-900 font-medium hover:underline"
                   >
                     View Details

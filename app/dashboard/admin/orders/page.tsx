@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 
@@ -9,7 +6,7 @@ export default async function AdminOrdersPage() {
     orderBy: { createdAt: "desc" },
     include: {
       user: true,
-      products: {
+      items: {
         include: {
           product: true,
         },
@@ -41,7 +38,7 @@ export default async function AdminOrdersPage() {
                 <td className="px-4 py-2 border-b">{order.id}</td>
                 <td className="px-4 py-2 border-b">{order.user.name}</td>
                 <td className="px-4 py-2 border-b">
-                  {order.products.map((p) => (
+                  {order.items.map((p) => (
                     <div key={p.id}>{p.product.name} x {p.quantity}</div>
                   ))}
                 </td>

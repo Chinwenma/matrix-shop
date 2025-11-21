@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
-import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageBanner from "@/app/components/banner/PageBanner";
 import ShoppingCartIcon from "@/app/components/product/Cart";
 

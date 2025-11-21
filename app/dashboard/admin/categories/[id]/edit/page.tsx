@@ -78,7 +78,7 @@ export default async function EditCategoryPage({ params }: Props) {
             <p className="mt-1 text-sm text-slate-500">
               Current:{" "}
               <Image
-                src={item.image}
+                src={item.image!}
                 alt="image"
                 width={100}
                 height={100}

@@ -6,6 +6,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Matrix Shop",
   description: "Matrix shop",
+  icons: {
+    icon: "/assets/MyLogo.png",
+  },
 };
 
 export default function RootLayout({

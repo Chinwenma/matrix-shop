@@ -22,12 +22,14 @@ async function recalcCartTotals(cartId: string) {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
-    if (!userId)
+    const email = searchParams.get("email");
+    if (!email)
       return NextResponse.json({ error: "User ID required" }, { status: 400 });
-
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user)
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     const cart = await prisma.cart.findFirst({
-      where: { userId, isActive: true },
+      where: { userId: user.id, isActive: true },
       include: {
         items: {
           include: {
@@ -52,27 +54,31 @@ export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return NextResponse.json({
-        error: "not signed in"
-    })
+      error: "not signed in",
+    });
   }
-  console.log(session);
-  
+
   try {
     const { productId, quantity } = await req.json();
-    const userId = session?.user.id;
-    if (!userId || !productId)
+    const email = session?.user.email;
+    if (!email || !productId)
       return NextResponse.json(
         { error: "Missing userId or productId" },
         { status: 400 }
       );
 
-    // find or create active cart
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
     let cart = await prisma.cart.findFirst({
-      where: { userId, isActive: true },
+      where: { userId: user.id, isActive: true },
     });
     if (!cart) {
       cart = await prisma.cart.create({
-        data: { userId },
+        data: { userId: user.id },
       });
     }
 

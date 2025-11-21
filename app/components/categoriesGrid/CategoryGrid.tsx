@@ -23,9 +23,10 @@ export default async function CategoriesGrid() {
               {/* Image */}
               <div className="relative h-64 w-full">
                 <Image
-                  src={category.image}
+                  src={category.image!}
                   alt={category.name}
-                  fill
+                  height={700}
+                  width={700}
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>

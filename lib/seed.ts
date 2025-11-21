@@ -91,7 +91,7 @@
 //   });
 
 import prisma from "@/lib/prisma";
-import { orders } from "./orders"; // your orders array
+// import { orders } from "./orders"; // your orders array
 import bcrypt from "bcryptjs";
 
 async function main() {
@@ -111,37 +111,37 @@ async function main() {
     });
   }
 
-  for (const order of orders) {
-    const createdOrder = await prisma.order.create({
-      data: {
-        userId: customer.id,
-        total: order.total,
-        status: order.status,
-        createdAt: new Date(order.date),
-        updatedAt: new Date(order.date),
-      },
-    });
+  // for (const order of orders) {
+  //   const createdOrder = await prisma.order.create({
+  //     data: {
+  //       userId: customer.id,
+  //       total: order.total,
+  //       status: order.status,
+  //       createdAt: new Date(order.date),
+  //       updatedAt: new Date(order.date),
+  //     },
+  //   });
 
-    for (const item of order.items) {
-      const product = await prisma.product.findFirst({
-        where: { name: item.name },
-      });
+  //   for (const item of order.items) {
+  //     const product = await prisma.product.findFirst({
+  //       where: { name: item.name },
+  //     });
 
-      if (!product) {
-        console.warn(`Product not found: ${item.name}, skipping`);
-        continue;
-      }
+  //     if (!product) {
+  //       console.warn(`Product not found: ${item.name}, skipping`);
+  //       continue;
+  //     }
 
-      await prisma.orderItem.create({
-        data: {
-          orderId: createdOrder.id,
-          productId: product.id,
-          quantity: item.qty,
-          price: product.price,
-        },
-      });
-    }
-  }
+  //     await prisma.orderItem.create({
+  //       data: {
+  //         orderId: createdOrder.id,
+  //         productId: product.id,
+  //         quantity: item.qty,
+  //         price: product.price,
+  //       },
+  //     });
+  //   }
+  // }
 
   console.log("✅ Seeded orders for a customer successfully!");
 }
