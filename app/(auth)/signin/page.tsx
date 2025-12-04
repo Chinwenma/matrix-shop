@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import Link from "next/link";
+// import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -82,20 +82,21 @@ export default function SignInPage() {
             </button>
           </div>
 
-          <div className="flex justify-end">
+          {/* <div className="flex justify-end">
             <Link
               href="/forgot-password"
               className="text-sm text-blue-200 hover:text-blue-400 font-medium"
             >
               Forgot password?
             </Link>
-          </div>
+          </div> */}
 
           <button
             type="submit"
-            className="w-full bg-blue-600/80 hover:bg-blue-700 text-white py-3 rounded-lg transition font-semibold shadow-md"
+            className="w-full bg-blue-600/80 hover:bg-blue-700 text-white py-3 rounded-lg transition font-semibold shadow-md"  disabled={loading}
+            
           >
-            Log In
+              {loading ? "Signing in..." : "Log In"}
           </button>
         </form>
 
@@ -118,7 +119,7 @@ export default function SignInPage() {
           </button>
         </div>
 
-        <p className="text-sm text-center mt-6 text-white/90">
+        {/* <p className="text-sm text-center mt-6 text-white/90">
           Have no account yet?{" "}
           <Link
             href="/signup"
@@ -126,7 +127,7 @@ export default function SignInPage() {
           >
             Registration
           </Link>
-        </p>
+        </p> */}
       </div>
     </div>
   );

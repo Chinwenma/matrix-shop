@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { ShoppingCart, Heart } from "lucide-react";
+import {  Heart } from "lucide-react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -23,7 +23,7 @@ const FeaturedProducts: FC = () => {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">Featured Products</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Product Gallery</h2>
 
           {/* Arrows – visible only on md+ */}
           <div className="hidden md:flex space-x-3">
@@ -82,7 +82,7 @@ const FeaturedProducts: FC = () => {
                 </div>
 
                 {/* Details */}
-                <div className="p-4 flex justify-between items-end">
+                {/* <div className="p-4 flex justify-between items-end">
                   <div>
                     <p className="text-sm text-gray-700">{product.title}</p>
                     <p className="text-lg font-semibold text-gray-900">
@@ -98,7 +98,7 @@ const FeaturedProducts: FC = () => {
                   <button className="bg-teal-600 text-white p-2 rounded-full hover:bg-teal-700 transition">
                     <ShoppingCart className="w-4 h-4" />
                   </button>
-                </div>
+                </div> */}
               </div>
             </SwiperSlide>
           ))}
