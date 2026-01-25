@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useCallback, useContext, useEffect, useState } from "react";
-import { User, X, Menu, Moon, Sun } from "lucide-react";
+import { User, X, Menu} from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "@/app/constants/Constant";
 import { useSession } from "next-auth/react";
@@ -9,7 +9,7 @@ import { Context } from "../contextProvider";
 import ProfileDropdown from "../ProfileDropDown";
 import CartIcon from "../Cart";
 const Navbar: FC = () => {
-  const { theme } = useContext(Context);
+  // const { theme } = useContext(Context);
   const [isSticky, setIsSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
@@ -39,13 +39,13 @@ const Navbar: FC = () => {
       <div className="hidden md:flex justify-between items-center bg-[#2b2541] text-gray-300 text-sm px-12 py-2">
         <p>✓ Free Shipping On All Orders Over $50</p>
         <div className="flex items-center space-x-5">
-          <select className="bg-transparent text-gray-300 outline-none">
+          {/* <select className="bg-transparent text-gray-300 outline-none">
             <option value="eng">Eng</option>
-          </select>
-          <Link href="#" className="hover:text-white transition">
+          </select> */}
+          {/* <Link href="#" className="hover:text-white transition">
             Faqs
-          </Link>
-          <Link href="#" className="hover:text-white transition">
+          </Link> */}
+          <Link href="/contact" className="hover:text-white transition">
             Need Help
           </Link>
         </div>
@@ -76,11 +76,11 @@ const Navbar: FC = () => {
 
         {/* Right Side Icons */}
         <div className="flex items-center space-x-4 md:space-x-6 shrink-0">
-          {theme.value === "light" ? (
+          {/* {theme.value === "light" ? (
             <Moon onClick={() => theme.setter("dark")} />
           ) : (
             <Sun onClick={() => theme.setter("light")} />
-          )}
+          )} */}
           {status === "unauthenticated" && (
             <Link
               href="/signin"
