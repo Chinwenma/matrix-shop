@@ -27,7 +27,6 @@ export default async function ProductDetails({ params }: ProductDetailsProps) {
       {/* Left: Interactive gallery (client component) */}
       <ProductGallery images={product.images || []} name={product.name} />
 
-      {/* Right: Product details */}
       <div className="flex flex-col justify-center">
         <h1 className="text-2xl font-semibold text-gray-900 mb-2">
           {product.name}

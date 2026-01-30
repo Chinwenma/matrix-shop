@@ -8,13 +8,19 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+// import { i } from "framer-motion/client";
 
 const products = [
-  { id: 1, title: "Library Stool Chair", price: 20, image: "/assets/chair1.jpg", badge: "New" },
-  { id: 2, title: "Library Stool Chair", price: 20, oldPrice: 30, image: "/assets/chair2.jpg", badge: "Sales" },
-  { id: 3, title: "Library Stool Chair", price: 20, image: "/assets/chair3.jpg" },
-  { id: 4, title: "Library Stool Chair", price: 20, image: "/assets/chair4.jpg" },
-  { id: 5, title: "Library Stool Chair", price: 20, image: "/assets/chair5.png" },
+  { id: 1, title: "Library Stool Chair", price: 20, image: "/assets/b4.jpg", badge: "New" },
+  { id: 2, title: "Library Stool Chair", price: 20, oldPrice: 30, image: "/assets/d6.jpg", badge: "Sales" },
+  { id: 3, title: "Library Stool Chair", price: 20, image: "/assets/b1.jpg" },
+  { id: 4, title: "Library Stool Chair", price: 20, image: "/assets/d2.jpg" },
+  { id: 5, title: "Library Stool Chair", price: 20, image: "/assets/s1.jpg" },
+  {id: 6, title: "Library Stool Chair", price: 20, oldPrice: 30, image: "/assets/s2.jpg", badge: "Sales" },
+  { id: 7, title: "Library Stool Chair", price: 20, image: "/assets/d1.jpg" },
+  { id: 8, title: "Library Stool Chair", price: 20, image: "/assets/b2.jpg" },
+  {id: 9, title: "Library Stool Chair", price: 20, image: "/assets/d3.jpg" },
+
 ];
 
 const FeaturedProducts: FC = () => {
@@ -56,7 +62,7 @@ const FeaturedProducts: FC = () => {
             <SwiperSlide key={product.id}>
               <div className="bg-white shadow-sm rounded-lg overflow-hidden relative group h-full flex flex-col justify-between">
                 {/* Badge */}
-                {product.badge && (
+                {/* {product.badge && (
                   <span
                     className={`absolute top-3 left-3 text-xs text-white px-2 py-1 rounded ${
                       product.badge === "New" ? "bg-green-600" : "bg-orange-500"
@@ -64,7 +70,7 @@ const FeaturedProducts: FC = () => {
                   >
                     {product.badge}
                   </span>
-                )}
+                )} */}
 
                 {/* Wishlist */}
                 <button className="absolute top-3 right-3 bg-white rounded-full p-1 shadow hover:text-teal-600 transition">
