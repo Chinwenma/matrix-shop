@@ -21,7 +21,7 @@ export default function CallToAction() {
         {/* Call to Action Button */}
         <div className="flex justify-center">
           <button
-            onClick={() => (window.location.href = "/shop")} // change link as needed
+            onClick={() => (window.location.href = "/products")} 
             className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-md text-sm font-semibold flex items-center gap-2 transition-transform hover:scale-105 shadow-lg hover:shadow-orange-500/30"
           >
             Shop Now! <ArrowRight className="w-4 h-4" />
