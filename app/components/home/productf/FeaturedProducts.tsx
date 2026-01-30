@@ -38,7 +38,6 @@ const FeaturedProducts: FC = () => {
           </div>
         </div>
 
-        {/* Swiper */}
         <Swiper
           modules={[Navigation, Autoplay]}
           navigation={{
